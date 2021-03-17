@@ -1,0 +1,58 @@
+<div class="canvas-form">
+<canvas id="graphic" width="223" height="219">
+
+</canvas>
+<form id="param" #form="ngForm" novalidate (ngSubmit)="submitForm(form)" name="param">
+  <p>
+    <label>
+      Координата X:
+      <div class="flexible">
+      <label *ngFor="let i of getXLimit()">
+        <input (click)="onClickRadioButton($event, getNewPoint(), 'x')"
+               [checked]="i == getNewPoint().x"
+               class="choose" type="radio" name="x" value="{{i}}"/>
+          <span class="label">
+            {{i}}
+          </span>
+      </label>
+      </div>
+    </label>
+  </p>
+  <p>
+    <label for="input-Y">Координата Y:</label>
+    <input #inputY="ngModel" class="choose" type="text" name="y"
+         id="input-Y" placeholder="(-3 &hellip; 3)" size="3" value="0"
+         [(ngModel)]="getNewPoint().y"
+         (focus)="inputY.control.setValidators(getYValidators())"/>
+    <ul class="error" *ngIf="formSubmitted && inputY.invalid">
+        <li *ngFor="let error of getValidationMessages(inputY, '\'Координата Y\'')">
+          {{error}}
+        </li>
+    </ul>
+  <p>
+    <input value="1" [value]="getNewPoint().r" type="hidden" id="input-R">
+    <label>
+      Параметр R:
+      <div class="flexible">
+      <label *ngFor="let i of getRLimit()">
+        <input (click)="onClickRadioButton($event, getNewPoint(), 'r', this.inputR)"
+               [checked]="i == getNewPoint().r"
+               class="choose" type="radio" name="input-R" value="{{i}}"/>
+        <span class="label">
+          {{i}}
+        </span>
+      </label>
+      </div>
+    </label>
+  <p>
+    <button class="choose dark" id="button-submit"
+            type="submit" name="button-submit"
+            [disabled] = "formSubmitted && form.invalid">
+      Проверить
+    </button>
+    <button class="choose dark" routerLink="/table">Таблица</button>
+    <button class="choose dark" (click)="logout()" routerLink="/auth">Выйти</button>
+  </p>
+</form>
+
+</div>

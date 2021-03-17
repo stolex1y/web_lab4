@@ -1,0 +1,35 @@
+<div id="results">
+  <table id="results-table">
+    <caption>Результаты</caption>
+    <thead>
+      <tr>
+        <th>Дата получения запроса</th>
+        <th>Время выполнения, мкс</th>
+        <th>X</th>
+        <th>Y</th>
+        <th>R</th>
+        <th>Результат</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let point of getPoints()">
+        <td>{{point.localDate}}</td>
+        <td>{{point.leadTime}}</td>
+        <td>{{point.x | number:"1.2-2"}}</td>
+        <td>{{point.y | number:"1.2-2"}}</td>
+        <td>{{point.r | number:"1.2-2"}}</td>
+        <td>{{point.getResultStr()}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="buttons">
+    <button class="choose dark" type="button" routerLink="/form">Добавить</button>
+    <button class="choose dark" type="button" (click)="this.getPoints(true)">Обновить</button>
+    <button class="choose dark" (click)="logout()" routerLink="/auth">Выйти</button>
+    <label class="page">
+      Страница
+      <input class="choose" type="text" (change)="setCurrentList($event.currentTarget['value'])"
+             [value]="currentList" size="1" />
+    </label>
+  </div>
+</div>

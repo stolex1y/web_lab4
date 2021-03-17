@@ -1,0 +1,48 @@
+<header>
+  <span id="name">Филимонов Алексей Александрович</span>
+  <span id="group">P3231</span>
+  <span id="var">Вариант: 2755</span>
+</header>
+
+<main>
+  <div>
+    <h3>Выполните вход</h3>
+    <span id="time"></span>
+  </div>
+
+  <form novalidate #form="ngForm" (change)="errorMessage = null">
+
+    <div>
+      <label for="login">Логин</label>
+      <input class="choose" #login="ngModel" [(ngModel)]="user.login" type="text" id="login" name="login"
+          required pattern="[^ \n\t]+"/>
+      <ul class="error" *ngIf="login.dirty && login.invalid">
+        <li *ngFor="let error of getValidationMessages(login, '\'Логин\'')">
+          {{error}}
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <label for="pass">Пароль</label>
+      <input class="choose" #pass="ngModel" [(ngModel)]="user.pass" type="password" id="pass" name="pass"
+            required minlength="5"/>
+      <ul class="error" *ngIf="pass.dirty && pass.invalid">
+        <li *ngFor="let error of getValidationMessages(pass, '\'Пароль\'')">
+          {{error}}
+        </li>
+      </ul>
+    </div>
+    <div class="error" *ngIf="errorMessage != null">
+      {{errorMessage}}
+    </div>
+    <button class="dark choose" [disabled]="form.invalid || form.disabled" (click)="onLogin(form)"
+            type="submit">Войти</button>
+    <button class="dark choose" [disabled]="form.invalid || form.disabled" (click)="onRegister(form)"
+            type="submit">Регистрация</button>
+  </form>
+</main>
+
+<footer>
+  <span>Университет ИТМО 2021</span>
+</footer>
